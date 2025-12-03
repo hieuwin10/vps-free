@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  windows10:
+    image: dockurr/windows
+    container_name: windows10-vps
+    hostname: win10-vps
+    restart: unless-stopped
+    
+    # Privileged mode để chạy KVM
+    privileged: true
+    
+    # Environment variables cho Windows 10
+    environment:
+      VERSION: "win10"
+      RAM_SIZE: "16G"
+      CPU_CORES: "4"
+      DISK_SIZE: "32G"
+      USERNAME: "admin"
+      PASSWORD: "password123"
+      # Tự động cài đặt
+      AUTO_START: "Y"
+    
+    # Device mapping cho KVM
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+    
+    # Capabilities
+    cap_add:
+      - NET_ADMIN
+    
+    # Port mapping
+    ports:
+      - "8006:8006"   # Web UI
+      - "3389:3389"   # RDP (Remote Desktop Protocol)
+      - "5900:5900"   # VNC
+    
+    # Volumes để lưu trữ dữ liệu
+    volumes:
+      - ./storage:/storage
+    
+    # Stop grace period
+    stop_grace_period: 2m
+    
+    # Networks
+    networks:
+      - vps-network
+
+networks:
+  vps-network:
+    driver: bridge

@@ -1,0 +1,40 @@
+# Docker volumes và data
+data/
+logs/
+storage/*.img
+storage/*.qcow2
+
+# Giữ lại các file config trong storage
+!storage/.gitkeep
+!storage/windows.base
+!storage/windows.boot
+!storage/windows.mac
+!storage/windows.rom
+!storage/windows.vars
+!storage/windows.ver
+
+# Environment files
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+tmp/
+temp/
+*.tmp

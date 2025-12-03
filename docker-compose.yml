@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  vps-free:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vps-free-container
+    hostname: vps-free
+    restart: unless-stopped
+    
+    # Mount volumes để persist data
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    
+    # Port mapping (có thể tùy chỉnh)
+    ports:
+      - "8080:80"
+      - "8443:443"
+    
+    # Environment variables
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+    
+    # Privileged mode (bật nếu cần quyền cao hơn)
+    # privileged: true
+    
+    # Keep container running
+    tty: true
+    stdin_open: true
+    
+    # Network mode
+    networks:
+      - vps-network
+
+# Define networks
+networks:
+  vps-network:
+    driver: bridge
